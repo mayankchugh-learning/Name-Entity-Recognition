@@ -9,7 +9,7 @@ LOGS_FILE_NAME = "ner.log"
 MODELS_DIR = "models"
 BEST_MODEL_DIR = "best_model"
 
-BUCKET_NAME = "ner-using-bert-24"
+BUCKET_NAME = "ner-using-bert-mayank-2024"
 GCP_DATA_FILE_NAME = "archive.zip"
 CSV_DATA_FILE_NAME = "ner.csv"
 GCP_MODEL_NAME = "model.pt"
