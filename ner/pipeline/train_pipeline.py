@@ -2,20 +2,27 @@ import sys
 from ner.components.data_ingestion import DataIngestion
 from ner.components.data_transforamation import DataTransformation
 from ner.components.model_trainer import ModelTraining
+from ner.components.model_evaluation import ModelEvaluation
+from ner.components.model_pusher import ModelPusher
 from ner.configuration.gcloud import GCloud
 from ner.constants import *
 
 from ner.entity.artifact_entity import (
     DataIngestionArtifacts,
     DataTransformationArtifacts,
-	ModelTrainingArtifacts,
+    ModelTrainingArtifacts,
+    ModelEvaluationArtifacts,
+    ModelPusherArtifacts
     )
 
 
 from ner.entity.config_entity import (
     DataIngestionConfig,
     DataTransformationConfig,
-	ModelTrainingConfig,
+    ModelTrainingConfig,
+    ModelEvalConfig,
+    ModelPusherConfig
+    
 )
 
 
@@ -28,6 +35,8 @@ class TrainPipeline:
         self.data_ingestion_config = DataIngestionConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.model_training_config = ModelTrainingConfig()
+        self.model_evaluation_config = ModelEvalConfig()
+        self.model_pusher_config = ModelPusherConfig()
         self.gcloud = GCloud()
 
     
@@ -100,6 +109,59 @@ class TrainPipeline:
 
         except Exception as e:
             raise NerException(e, sys) from e
+        
+
+    
+
+     # This method is used to start model evaluation
+    def start_model_evaluation(
+        self,
+        data_transformation_artifact: DataTransformationArtifacts,
+        model_trainer_artifact: ModelTrainingArtifacts,
+    ) -> ModelEvaluationArtifacts:
+        try:
+            logging.info(
+                "Entered the start_model_evaluation method of Train pipeline class"
+            )
+            model_evaluation = ModelEvaluation(
+                data_transformation_artifacts=data_transformation_artifact,
+                model_training_artifacts=model_trainer_artifact,
+                model_evaluation_config=self.model_evaluation_config,
+            )
+
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+
+            logging.info(
+                "Exited the start_model_evaluation method of Train pipeline class"
+            )
+            return model_evaluation_artifact
+
+        except Exception as e:
+            raise NerException(e, sys) from e
+        
+
+    
+
+
+     # This method is used to statr model pusher
+    def start_model_pusher(
+        self, model_evaluation_artifact: ModelEvaluationArtifacts
+    ) -> ModelPusherArtifacts:
+        try:
+            logging.info(
+                "Entered the start_model_pusher method of Train pipeline class"
+            )
+            model_pusher = ModelPusher(
+                model_evaluation_artifact=model_evaluation_artifact,
+                model_pusher_config=self.model_pusher_config,
+            )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+
+            logging.info("Exited the start_model_pusher method of Train pipeline class")
+            return model_pusher_artifact
+
+        except Exception as e:
+            raise NerException(e, sys) from e
 
         
 
@@ -116,6 +178,14 @@ class TrainPipeline:
             )
             model_trainer_artifact = self.start_model_training(
                 data_transformation_artifacts=data_transformation_artifacts
+            )
+            model_evaluation_artifact = self.start_model_evaluation(
+                data_transformation_artifact=data_transformation_artifacts,
+                model_trainer_artifact=model_trainer_artifact,
+            )
+
+            model_pusher_artifact = self.start_model_pusher(
+                model_evaluation_artifact=model_evaluation_artifact
             )
 
         except Exception as e:

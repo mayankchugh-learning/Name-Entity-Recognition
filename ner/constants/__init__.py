@@ -29,6 +29,7 @@ DF_TEST_FILE_NAME = "df_test.pkl"
 UNIQUE_LABELS_FILE_NAME = "unique_labels.pkl"
 
 
+
 # Model Trainer 
 
 MODEL_TRAINING_ARTIFACTS_DIR = "ModelTrainingArtifacts"
@@ -37,3 +38,12 @@ EPOCHS = 1
 BATCH_SIZE = 2
 BERT_MODEL_INSTANCE_NAME = "bert_model_instance.pt"
 TOKENIZER_FILE_NAME = "tokenizer.pkl"
+
+
+MODEL_EVALUATION_ARTIFACTS_DIR = "ModelEvaluationArtifacts"
+
+
+
+APP_HOST = "0.0.0.0"
+APP_PORT = 8080
+
