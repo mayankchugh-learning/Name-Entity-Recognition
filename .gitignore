@@ -161,3 +161,6 @@ cython_debug/
 test/
 .DS_Store
 artifacts/*
+ids_to_labels.pkl
+tokenizer.pkl
+best_model/model.pt
