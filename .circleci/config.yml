@@ -47,7 +47,7 @@ jobs:
 
       - run:
           name: push to private repository
-          command: docker push asia-east2-docker.pkg.dev/us-visa-bf68d/ner-bert/ner-bert:latest:latest
+          command: docker push asia-east2-docker.pkg.dev/us-visa-bf68d/ner-bert/ner-bert:latest
 
   continuous-deployment:
     machine: true
@@ -69,7 +69,7 @@ jobs:
 
       - run:
           name: pull image from private repository
-          command: docker pull asia-east2-docker.pkg.dev/us-visa-bf68d/ner-bert/ner-bert:latest:latest
+          command: docker pull asia-east2-docker.pkg.dev/us-visa-bf68d/ner-bert/ner-bert:latest
         
       - run:
           name: Start Docker container
