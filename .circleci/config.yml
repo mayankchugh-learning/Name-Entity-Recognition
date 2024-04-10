@@ -51,7 +51,7 @@ jobs:
 
   continuous-deployment:
     machine: true
-    resource_class: mayank/nerbert
+    resource_class: mayank/ner-bert
     environment:
       REPOSITORY: ner-bert
       GAR_IMAGE_NAME: ner-bert
