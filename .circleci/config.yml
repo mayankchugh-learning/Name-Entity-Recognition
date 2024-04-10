@@ -79,7 +79,6 @@ jobs:
           name: free up system space
           command: docker system prune -f
 
-      
 
 workflows:
   CICD:
