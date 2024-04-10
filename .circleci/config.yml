@@ -51,7 +51,7 @@ jobs:
 
   continuous-deployment:
     machine: true
-    resource_class: bappy/nertest
+    resource_class: mayank/nertest
     environment:
       REPOSITORY: ner-bert
       GAR_IMAGE_NAME: ner-bert
