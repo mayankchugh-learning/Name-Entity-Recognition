@@ -59,8 +59,8 @@ python app.py
 ## GCP CICD Deployment with CircleCI:
 
 - artifact registry  --> create a repository
-- change line 42,50,72,76,54 in circleci config
-- Opne circleci --> create a project
+- update artifact registry name  to line 42,50,72,76,54 in circleci config.yaml
+- Open circleci --> create a project
 
 
 ### Set Environment variables in CircleCI
@@ -69,7 +69,7 @@ python app.py
 
 GCLOUD_SERVICE_KEY --> service account
 
-GOOGLE_COMPUTE_ZONE = asia-south1
+GOOGLE_COMPUTE_ZONE = asia-east2
 
 GOOGLE_PROJECT_ID
 
